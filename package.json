@@ -1,0 +1,21 @@
+{
+  "name": "animetalk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "postcss style.css -o public/style.css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meowyam/animetalk.git"
+  },
+  "keywords": [],
+  "author": "Maryam Hanafiah",
+  "dependencies": {
+    "autoprefixer": "^9.7.6",
+    "fastify": "^2.14.0",
+    "fastify-static": "^2.7.0"
+  }
+}
