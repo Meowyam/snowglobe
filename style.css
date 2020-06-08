@@ -1,0 +1,26 @@
+body {
+  background: white;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+#snowglobe {
+  width: 300px;
+  height: 300px;
+  margin: auto;
+  background: #042a3d;
+  padding: 10px;
+  overflow: hidden;
+}
+
+#snowglobe i {
+  margin: 10px;
+}
+
+.fa-snowflake {
+  color: #d2edfa;
+}
