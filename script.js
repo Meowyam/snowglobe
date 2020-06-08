@@ -24,7 +24,7 @@ function shakeGlobe(strength) {
   })
 }
 
-function fallingSnow(strength) {
+function fallingSnow(strength,loopable) {
   anime({
     // target anything. here: a css selector
     targets: '.fa-snowflake',
@@ -36,7 +36,8 @@ function fallingSnow(strength) {
     },
     // css properties. here: transform, rotate
     translateY: {
-      value: 350,
+      // from, to
+      value: [0, 350],
       // random integer
       duration: function() {
         return anime.random(1000, 3000)
@@ -44,6 +45,7 @@ function fallingSnow(strength) {
       // stagger multiple elements with follow through and overlapping action
       delay: anime.stagger(100),
       easing: 'linear',
+      loop: true,
     },
     rotateZ: {
     // specific property parameters
@@ -56,51 +58,48 @@ function fallingSnow(strength) {
     // keyframes are defined in an Array
     // keyFrames for property translateX
     translateX: [
-      console.log('strength x ', strength),
       {
-        value: strength,
+        value: [0, strength],
         duration: 100,
         easing: 'linear',
-        loop: 1,
       },
       {
-        value: -(strength/10),
+        value: [strength, -(strength/10)],
         duration: 100,
         easing: 'linear',
-        loop: 1,
       },
       {
-        value: strength,
+        value: [-strength/10, strength],
         duration: 150,
         easing: 'linear',
-        loop: 1,
       },
       {
-        value: -(strength/10),
+        value: [strength, 0],
         duration: 150,
         easing: 'linear',
-        loop: 1,
       },
       //'If there is no duration specified inside the keyframes, each keyframe duration will be equal to the animation's total duration divided by the number of keyframes.'
       {
-        value: strength,
+        value: 0,
         easing: 'easeInOutQuad',
-        loop: 1,
       },
     ],
-    update: function(anim) {
-      strength = 0
+    // a callback is triggered on every frame
+    // complete callback is triggered when animation is completed
+    // there's also a begin callback
+    complete: function(anim) {
+      if (loopable == false) {
+      }
     },
-    loop: true,
+    loop: loopable
   })
 }
 
-// with animejs,
+generateSnow()
 
 function startSnow() {
-  generateSnow()
   let strength = 0
-  fallingSnow(strength)
+  fallingSnow(strength,true)
 }
 
 //add shaking
@@ -113,8 +112,7 @@ function startSnow() {
 function shake() {
   console.log('shake')
   strength = 50
-  fallingSnow(strength)
-
+  fallingSnow(strength,false)
 }
 
 document.addEventListener("DOMContentLoaded", startSnow())
