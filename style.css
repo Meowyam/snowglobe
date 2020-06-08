@@ -6,6 +6,7 @@ body {
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  flex-flow: wrap;
 }
 
 #snowglobe {
@@ -23,4 +24,18 @@ body {
 
 .fa-snowflake {
   color: #d2edfa;
+}
+
+#controls {
+  width: 100vw;
+}
+
+#controls .container {
+  margin: auto;
+  width: 300px;
+  display: flex;
+}
+
+.shake {
+  width: 50%;
 }
