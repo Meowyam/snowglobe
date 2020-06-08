@@ -1,8 +1,10 @@
+let snowDepth = 0
+
 const generateSnow = function() {
   let i = 0
   let snowArr = []
-  while (i < 6) {
-    document.getElementById('snowglobe').innerHTML += '<i class="fas fa-snowflake fa-2x"></i>'
+  while (i < 15) {
+    document.getElementById('snowglobe').innerHTML += '<i class="fas fa-snowflake"></i>'
     i++
   }
 }
@@ -12,15 +14,16 @@ function shakeGlobe(strength) {
     targets: '#snowglobe',
     // animation keyframes
     keyframes: [
-      {translateX: strength},
-      {translateX: -strength},
-      {translateX: strength},
-      {translateX: -strength},
+      {translateX: strength/5},
+      {translateX: -strength/5},
+      {translateX: strength/5},
+      {translateX: -strength/5},
       {translateX: 0}
     ],
     duration: 500,
-    // elastic easing (amplitude, how many times curve goes back and forth)
-    easing: 'easeInOutElastic(1,1)',
+    // easing spring(mass, stiffness, damping, velocity)
+    // the higher the mass, the 'stretchier'
+    easing: 'spring(2, 2, 2, 10)',
   })
 }
 
@@ -37,15 +40,14 @@ function fallingSnow(strength,loopable) {
     // css properties. here: transform, rotate
     translateY: {
       // from, to
-      value: [0, 350],
+      value: [0, 450],
       // random integer
       duration: function() {
-        return anime.random(1000, 3000)
+        return anime.random(2000, 3000)
       },
       // stagger multiple elements with follow through and overlapping action
-      delay: anime.stagger(100),
+      delay: anime.stagger(50),
       easing: 'linear',
-      loop: true,
     },
     rotateZ: {
     // specific property parameters
@@ -59,39 +61,71 @@ function fallingSnow(strength,loopable) {
     // keyFrames for property translateX
     translateX: [
       {
-        value: [0, strength],
+        value: strength,
         duration: 100,
         easing: 'linear',
       },
       {
-        value: [strength, -(strength/10)],
+        value: -strength,
         duration: 100,
         easing: 'linear',
       },
       {
-        value: [-strength/10, strength],
+        value: strength,
         duration: 150,
         easing: 'linear',
       },
       {
-        value: [strength, 0],
+        value: -strength,
         duration: 150,
         easing: 'linear',
       },
       //'If there is no duration specified inside the keyframes, each keyframe duration will be equal to the animation's total duration divided by the number of keyframes.'
       {
         value: 0,
-        easing: 'easeInOutQuad',
+        easing: 'linear',
       },
     ],
     // a callback is triggered on every frame
-    // complete callback is triggered when animation is completed
-    // there's also a begin callback
-    complete: function(anim) {
-      if (loopable == false) {
-      }
+    // begin callback is triggered when animation is started
+    loopBegin: function(anim) {
+      snowDepth++
+      showSnowdepth(snowDepth)
+    },
+    // complete callback
+    loopComplete: function(anim) {
+      totalSnow(snowDepth)
     },
     loop: loopable
+  })
+}
+
+function showSnowdepth(snowDepth) {
+  anime({
+    targets: '.snowdepth',
+    height: snowDepth * 10,
+    // delay in milliseconds
+    delay: 2000,
+  })
+}
+
+
+//animate any Object with a numerical value
+
+let snowfallObj = {
+  snowCount: 0,
+}
+
+function totalSnow(snowDepth) {
+  console.log(snowDepth)
+  anime({
+    targets: snowfallObj,
+    snowCount: snowDepth,
+    easing: 'easeOutElastic(10,2)',
+    round: 1,
+    update: function() {
+      document.querySelector('.totalSnowfall').innerHTML = snowfallObj.snowCount
+    }
   })
 }
 
@@ -113,6 +147,7 @@ function shake() {
   console.log('shake')
   strength = 50
   fallingSnow(strength,false)
+  shakeGlobe(strength)
 }
 
 document.addEventListener("DOMContentLoaded", startSnow())
