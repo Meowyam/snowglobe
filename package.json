@@ -1,14 +1,12 @@
 {
-  "name": "animetalk",
+  "name": "snowglobe",
   "version": "1.0.0",
-  "description": "",
+  "description": "falling snow",
   "main": "index.js",
   "scripts": {
     "build": "postcss style.css -o public/style.css",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "Maryam Hanafiah",
@@ -16,5 +14,15 @@
     "autoprefixer": "^9.7.6",
     "fastify": "^2.14.0",
     "fastify-static": "^2.7.0"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Meowyam/snowglobe.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Meowyam/snowglobe/issues"
+  },
+  "homepage": "https://github.com/Meowyam/snowglobe#readme"
 }
