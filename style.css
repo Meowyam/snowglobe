@@ -1,3 +1,66 @@
+
+/* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+
+.svg-icon {
+  width: 200px;
+  height: 200px;
+}
+
+.svg-icon path {
+  fill: #042a3d;
+}
+
+.house {
+  position: absolute;
+  left: 100px;
+  bottom: 10px;
+}
+
+.snowglobe {
+  width: 400px;
+  height: 400px;
+  margin: auto;
+  background: #042a3d;
+  padding: 0px;
+  overflow: hidden;
+  border-radius: 50%;
+  position: relative;
+}
+
+.snowglobe i {
+  margin: 0 10px;
+}
+
+.moon {
+  color: #ebcf34;
+  position: absolute;
+  left: 50px;
+  top: 100px;
+}
+
+.stars {
+  color: #e9eddd;
+  position: absolute;
+  width: 150px;
+  max-width: 150px;
+  max-height: 50px;
+  height: 50px;
+  left: 175px;
+  top: 75px;
+}
+
+#snowglobe .stars i {
+  margin-right: 15px;
+  display: block;
+}
+
+.mid-star {
+  position: relative;
+  top: 50px;
+}
+
 body {
   background: white;
   width: 100vw;
@@ -9,7 +72,7 @@ body {
   flex-flow: wrap;
 }
 
-.snowdepth {
+#snowdepth {
   width: 400px;
   overflow: hidden;
   border-radius: 50%;
@@ -17,25 +80,22 @@ body {
   bottom: 0;
   left: 0;
   background-color: white; 
+  z-index: 1000;
 }
 
-#snowglobe {
+#snowbox {
   width: 400px;
   height: 400px;
   margin: auto;
-  background: #042a3d;
   padding: 0px;
   overflow: hidden;
   border-radius: 50%;
+  opacity: 0;
   position: relative;
 }
 
-#snowglobe i {
-  margin: 0 10px;
-}
-
 .fa-snowflake {
-  color: #d2edfa;
+  color: white;
 }
 
 #controls {
@@ -48,6 +108,6 @@ body {
   display: flex;
 }
 
-.shake {
-  width: 50%;
+.play, .pause {
+  width: 25%;
 }
