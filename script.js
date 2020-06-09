@@ -1,14 +1,16 @@
 let snowDepth = 0
-let shakeComplete = false
+let snowObj = {
+  snowedIn: '0%'
+}
 
-const generateSnow = function() {
-  let i = 0
-  while (i < 15) {
-    document.getElementById('snowbox').innerHTML += '<i class="fas fa-snowflake"></i>'
+const eachSnow = function() {
+  let i=0;
+  while (i<15) {
+    let rand = Math.floor(Math.random() * (385-15) + 15)
+    document.querySelector('.snowbox').innerHTML += '<i class="fas fa-snowflake" style="left:' + rand + 'px"></i>'
     i++
   }
 }
-generateSnow()
 
 //swing the moon
 // pendulum animation is easy
@@ -78,27 +80,20 @@ const fallingSnow = anime.timeline({
   targets: '.fa-snowflake',
   autoplay: false,
   loop: true,
-  duration: 800,
-  easing: 'easeOutElastic(10,2)',
+  easing: 'linear',
   // a callback is triggered on every frame
   // this callback is triggered when each loop ends
-  loopComplete: function() {
-    console.log(snowDepth)
-    snowDepth++
-    document.querySelector('#snowdepth').style.height = (snowDepth * 10) + 'px'
-    if (snowDepth == 40) {
-      anime.remove('.fa-snowflake')
-    }
-    return snowDepth
-  },
 })
+
+fallingSnow
 //add other animations as children
 // some parameters can be inherited: targets, easing, duration, delay, round (rounds up value)
 // you can override the inherited parameters when you declare new ones in the children
 
+// animate any numerical Object
 //shake the globe
   .add({
-    targets: '.snowglobe',
+    targets: '#snowglobe',
   // animation keyframes
   // keyframes are defined in an Array
     keyframes: [
@@ -119,62 +114,54 @@ const fallingSnow = anime.timeline({
     // callback triggered when animation is completed
     // looped timeline plays all children
     complete: function(anim) {
-      if (anim.completed == true) {
-        anime.remove('.snowglobe')
-      }
-    }
-  })
-
-  // make snow visible
-  .add({
-    targets: '#snowbox',
-    opacity: 1,
-    duration: 1,
-    loop: true,
+      anime.remove('#snowglobe')
+    },
   })
 
   // when first animation ends
   // continue to next in timeline
 
   .add({
-    // css values. here: opacity
-    opacity: {
-      value: 0,
-      duration: 3000,
-      easing: 'linear',
-    },
+    eachSnow: eachSnow(),
     // css properties. here: transform, rotate
     translateY: {
       // from, to
       value: [0, 450],
-      // random integer
-      duration: function() {
-        return anime.random(2000, 3000)
-      },
+      duration: 3000,
       // stagger multiple elements with follow through and overlapping action
-      delay: anime.stagger(50),
+      delay: anime.stagger(500),
       easing: 'linear',
-      loop: true,
     },
     rotateZ: {
       // specific property parameters
       value: 360,
-      duration: 3000,
+      // random integer
+      duration: function() {
+        return anime.random(2000, 3000)
+      },
       direction: 'alternate',
       easing: 'linear',
-      loop: true,
     },
-  })
-
-  .add({
-    //animate any Object with a numerical value
-    snowCount: snowDepth,
-    easing: 'easeOutElastic(10,2)',
-    round: 1,
     update: function() {
-      document.querySelector('.totalSnowfall').innerHTML = snowDepth
-    }
-  })
+      snowDepth++
+      document.querySelector('#snowdepth').style.height = (snowDepth/10) + 'px'
+      if (snowDepth == 4000) {
+        anime.remove('.fa-snowflake')
+      }
+      anime({
+      targets: snowObj,
+      snowedIn: (snowDepth/40),
+      round: 2,
+      easing: 'linear',
+      update: function() {
+        document.querySelector('.totalSnowfall').innerHTML = snowObj.snowedIn;
+      },
+    })
+    return snowDepth
+  },
+}, '-=1000')
+
+
 
 document.querySelector('.play').onclick = fallingSnow.play
 document.querySelector('.pause').onclick = fallingSnow.pause

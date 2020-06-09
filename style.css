@@ -18,7 +18,7 @@ SVG Icons - svgicons.sparkk.fr
   bottom: 10px;
 }
 
-.snowglobe {
+#snowglobe {
   width: 400px;
   height: 400px;
   margin: auto;
@@ -29,7 +29,7 @@ SVG Icons - svgicons.sparkk.fr
   position: relative;
 }
 
-.snowglobe i {
+#snowglobe i {
   margin: 0 10px;
 }
 
@@ -49,11 +49,6 @@ SVG Icons - svgicons.sparkk.fr
   height: 50px;
   left: 175px;
   top: 75px;
-}
-
-#snowglobe .stars i {
-  margin-right: 15px;
-  display: block;
 }
 
 .mid-star {
@@ -83,19 +78,20 @@ body {
   z-index: 1000;
 }
 
-#snowbox {
+.snowbox {
   width: 400px;
   height: 400px;
   margin: auto;
   padding: 0px;
   overflow: hidden;
   border-radius: 50%;
-  opacity: 0;
   position: relative;
 }
 
 .fa-snowflake {
   color: white;
+  position: absolute;
+  top: -50px;
 }
 
 #controls {
