@@ -1,7 +1,4 @@
 let snowDepth = 0
-let snowObj = {
-  snowedIn: '0%'
-}
 
 const eachSnow = function() {
   let i=0;
@@ -148,15 +145,6 @@ fallingSnow
       if (snowDepth == 4000) {
         anime.remove('.fa-snowflake')
       }
-      anime({
-      targets: snowObj,
-      snowedIn: (snowDepth/40),
-      round: 2,
-      easing: 'linear',
-      update: function() {
-        document.querySelector('.totalSnowfall').innerHTML = snowObj.snowedIn;
-      },
-    })
     return snowDepth
   },
 }, '-=1000')
