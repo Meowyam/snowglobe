@@ -3,19 +3,21 @@
 SVG Icons - svgicons.sparkk.fr
 ----- */
 
-.svg-icon {
-  width: 200px;
-  height: 200px;
-}
-
-.svg-icon path {
-  fill: #042a3d;
+.house .outline {
+  width: 100px;
+  height: 100px;
 }
 
 .house {
   position: absolute;
-  left: 100px;
-  bottom: 10px;
+  left: 150px;
+  bottom: 100px;
+}
+
+.house path {
+  fill: #042a3d;
+  stroke: #1f9eb8; 
+  stroke-width: 1px;
 }
 
 #snowglobe {
@@ -94,16 +96,13 @@ body {
   top: -50px;
 }
 
-#controls {
+#greetings {
   width: 100vw;
 }
 
-#controls .container {
-  margin: auto;
-  width: 300px;
-  display: flex;
-}
-
-.play, .pause {
-  width: 25%;
+#greetings div {
+  text-align: center;
+  font-family: 'Dancing Script', sans-serif;
+  font-size: 3rem;
+  color: #1f9eb8; 
 }

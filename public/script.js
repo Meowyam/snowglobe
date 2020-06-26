@@ -1,4 +1,7 @@
 let snowDepth = 0
+const greetingsWrapper = document.querySelector('#greetings div')
+greetingsWrapper.innerHTML = greetingsWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>")
+greetingsWrapper.innerHTML = greetingsWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>")
 
 const eachSnow = function() {
   let i=0;
@@ -28,13 +31,22 @@ const moon = anime({
 //use the path as a motion path,
 //morph the path (shapes must have same number of points)
 //and line drawing (path must have stroke, cf svg line animation in css
-const house = anime({
+const house = anime.timeline({
   targets: '.house svg path',
   strokeDashoffset: [anime.setDashoffset, 0],
   easing: 'easeInOutSine',
   duration: 1500,
 })
 
+house.add ({
+  targets: '.door, .roof, .chimney',
+  fill: '#991832',
+})
+
+house.add({
+  targets: '.frame',
+  fill: '#f3f5df',
+})
 
 const twinkle = anime({
   //property keyframes defined in property Object Array
@@ -53,7 +65,7 @@ const twinkle = anime({
     {value: '#ffffff'},
     {value: '#f2ff9c'},
   ],
-  duration: 1000,
+  duration: 500,
   // loop: can enter a number or true for infinite
   loop: true,
   // normal, reverse, or alternate
@@ -89,6 +101,7 @@ fallingSnow
 
 // animate any numerical Object
 //shake the globe
+//
   .add({
     targets: '#snowglobe',
   // animation keyframes
@@ -124,7 +137,7 @@ fallingSnow
     translateY: {
       // from, to
       value: [0, 450],
-      duration: 3000,
+      duration: 1000,
       // stagger multiple elements with follow through and overlapping action
       delay: anime.stagger(500),
       easing: 'linear',
@@ -134,7 +147,7 @@ fallingSnow
       value: 360,
       // random integer
       duration: function() {
-        return anime.random(2000, 3000)
+        return anime.random(500, 1000)
       },
       direction: 'alternate',
       easing: 'linear',
@@ -149,8 +162,30 @@ fallingSnow
   },
 }, '-=1000')
 
+const greetings = anime.timeline({
+  autoplay: false,
+})
+greetings.add({
+  targets: '#greetings div .letter',
+  opacity: [0,1],
+  easing: 'easeInOutQuad',
+  duration: 3000,
+  delay: (el, i) => 1500 * (i+1)
+})
+greetings.add({
+  targets: '#greetings div',
+  opacity: 0,
+  duration: 1000,
+  easing: "easeOutExpo",
+  delay: 3000,
+})
+
+function playTogether() {
+  greetings.play()
+  fallingSnow.play()
+}
 
 
-document.querySelector('.play').onclick = fallingSnow.play
-document.querySelector('.pause').onclick = fallingSnow.pause
+
+document.querySelector('#snowglobe').onclick = playTogether
 
