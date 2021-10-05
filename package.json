@@ -13,7 +13,7 @@
   "dependencies": {
     "autoprefixer": "^9.7.6",
     "fastify": "^2.14.0",
-    "fastify-static": "^2.7.0"
+    "fastify-static": "^4.2.4"
   },
   "devDependencies": {},
   "repository": {
